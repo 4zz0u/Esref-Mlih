@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="background_category">#FFF7DA</color>
+
+    <!-- Categories colors -->
+    <color name="smoke_color">#EF6C00</color>
+    <color name="business_color">#BDBDBD</color>
+    <color name="food_color">#FFD54F</color>
+    <color name="transport_color">#607D8B</color>
+    <color name="health_color">#B71C1C</color>
+    <color name="restaurant_color">#4DB6AC</color>
+    <color name="tax_color">#E0E0E0</color>
+    <color name="sport_color">#9E9E9E</color>
+    <color name="trip_color">#4FC3F7</color>
+    <color name="car_color">#BCAAA4</color>
+    <color name="communication_color">#9575CD</color>
+
+    <!-- Dialog color -->
+    <color name="colorGreenLight">#abffc0</color>
+    <color name="colorGreen">#3eb959</color>
+    <color name="colorGreenDark">#247b37</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGoldenYellow">#FFD600</color>
+
+</resources>
