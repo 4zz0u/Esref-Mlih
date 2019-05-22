@@ -1,4 +1,4 @@
-package com.example.roomtest1;
+package com.example.esrefmlih.Database;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -38,7 +38,7 @@ public class Expenditure {
     }
 
 
-    //Setters
+    // Setters
     public void setId(int id) {
         this.id = id;
     }

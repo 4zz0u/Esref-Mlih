@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#ECEFF1">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorGreenLight"
+    tools:context=".Lifecycle.MainActivity"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp">
+    </android.support.design.widget.AppBarLayout>
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="325dp"
-        android:layout_height="388dp"
-        android:layout_centerInParent="true">
-
-    </com.github.mikephil.charting.charts.PieChart>
-
-    <RelativeLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/colorWhite"
+        app:tabIndicatorColor="@color/colorBlack"
+        android:background="@color/colorPrimary"/>
 
-        <ImageView
-            android:id="@+id/ic_add"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="24dp"
-            android:layout_marginEnd="24dp"
-            android:elevation="5dp"
-            android:src="@drawable/ic_add_circle" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

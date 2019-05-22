@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.roomtest1">
+    package="com.example.esrefmlih">
 
     <application
         android:allowBackup="true"
@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AddExpenditureActivity"
+            android:name="com.example.esrefmlih.Lifecycle.Adding.AddExpenditureActivity"
             android:label="Add an expenditure"></activity>
-        <activity android:name=".Category" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.esrefmlih.Lifecycle.Adding.Category" />
+        <activity android:name="com.example.esrefmlih.Lifecycle.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

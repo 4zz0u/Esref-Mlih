@@ -1,9 +1,11 @@
-package com.example.roomtest1;
+package com.example.esrefmlih.Lifecycle;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+
+import com.example.esrefmlih.Database.Expenditure;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class ExpenditureViewModel extends AndroidViewModel {
         mAllExpenditures = mRepository.getmAllExpenditures();
     }
 
-    LiveData<List<Expenditure>> getmAllExpenditures() {
+    public LiveData<List<Expenditure>> getmAllExpenditures() {
         return mAllExpenditures;
     }
 
