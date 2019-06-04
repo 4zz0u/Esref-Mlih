@@ -3,11 +3,10 @@ package com.example.esrefmlih.Calculations;
 
 import com.example.esrefmlih.Database.Expenditure;
 import com.github.mikephil.charting.data.PieEntry;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PieUpdater implements GraphUpdater {
+public class PieUpdater {
 
     private List<Expenditure> mAllExpenditures;
 
@@ -23,7 +22,6 @@ public class PieUpdater implements GraphUpdater {
      * @return yValues
      */
 
-    @Override
     public ArrayList<PieEntry> update() {
 
         int[] mExpendituresPerCategory = new int[11];
@@ -39,7 +37,6 @@ public class PieUpdater implements GraphUpdater {
             for(i = 0; i < mExpendituresPerCategory.length; i++) {
                 yValues.add(new PieEntry(mExpendituresPerCategory[i], categories[i]));
             }
-
 
         } catch (NullPointerException e) {
             for(i = 0; i < categories.length; i++) {

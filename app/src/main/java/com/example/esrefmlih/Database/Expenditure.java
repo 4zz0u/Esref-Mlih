@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
 
 
 @Entity(tableName = "expenditure_table")
@@ -18,13 +19,24 @@ public class Expenditure {
     @ColumnInfo(name = "amount")
     private int mAmount;
 
-    public Expenditure(int category, int amount) {
+    @ColumnInfo(name = "date")
+    private Date mDate;
+
+
+    public Expenditure(int category, int amount, Date date) {
         mCategory = category;
         mAmount = amount;
+        mDate = date;
     }
 
 
+
     // Getters
+
+    public Date getDate() {
+            return mDate;
+    }
+
     public int getId() {
         return id;
     }
@@ -39,6 +51,11 @@ public class Expenditure {
 
 
     // Setters
+
+    public void setDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -23,8 +23,12 @@ import com.example.esrefmlih.Database.Expenditure;
 import com.example.esrefmlih.Lifecycle.ExpenditureViewModel;
 import com.example.esrefmlih.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class AddExpenditureActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -122,13 +126,23 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
                     toast.setGravity(Gravity.BOTTOM, 0, 0);
                     toast.setMargin(0, 0.05f);
                     toast.show();
+                } else if (mDatePicker.getText().toString().equals("Date picker")){
+                    toast = Toast.makeText(getApplicationContext(), "Select a date", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setMargin(0, 0.05f);
+                    toast.show();
                 }
                 else {
                     String amountString = mAmountEditText.getText().toString();
                     int amount = Integer.parseInt(amountString);
+                    try {
+                        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(mDatePicker.getText().toString());
+                        Expenditure expenditure = new Expenditure(itemPosition, amount, date);
+                        mExpenditureViewModel.insert(expenditure);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-                    Expenditure expenditure = new Expenditure(itemPosition, amount);
-                    mExpenditureViewModel.insert(expenditure);
 
                     // Showing this toast after confirming the transaction
                     toast = Toast.makeText(getApplicationContext(), "Expenditure added", Toast.LENGTH_SHORT);
@@ -161,7 +175,7 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         );
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // gets the current day
         datePickerDialog.show();
     }
 

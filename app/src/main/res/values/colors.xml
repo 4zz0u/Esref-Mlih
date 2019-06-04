@@ -11,7 +11,7 @@
     <color name="business_color">#BDBDBD</color>
     <color name="food_color">#FFD54F</color>
     <color name="transport_color">#607D8B</color>
-    <color name="health_color">#B71C1C</color>
+    <color name="health_color">#FF5131</color>
     <color name="restaurant_color">#4DB6AC</color>
     <color name="tax_color">#E0E0E0</color>
     <color name="sport_color">#9E9E9E</color>
@@ -26,5 +26,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#2d2d2d</color>
     <color name="colorGoldenYellow">#FFD600</color>
+    <color name="colorRedDark">#801b20</color>
+    <color name="colorRed">#ff3943</color>
 
 </resources>

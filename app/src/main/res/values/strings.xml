@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Esref Mlih</string>
+    <!--navigation items strings-->
+    <string name="export_to_xls_file">Export to XLS file</string>
+    <string name="language">Language</string>
+    <string name="delete_data">Delete data</string>
+
+    <!--navigation toggle for ActionBarDrawerToggle (MainActivity)-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Data removal dialog strings-->
+    <string name="confirm">confirm</string>
+    <string name="awww_are_you_sure">Awww… are you sure ?</string>
+    <string name="warning_dialog">by clicking on confirm, all your previous transactions will get deleted from the database, are you sure about this ?</string>
+
+    <!--TabLayout strings-->
+    <string name="graphs_tab">Graphs</string>
+    <string name="statistics_tab">Statitics</string>
+    <string name="transactions_tab">Transactions</string>
 </resources>

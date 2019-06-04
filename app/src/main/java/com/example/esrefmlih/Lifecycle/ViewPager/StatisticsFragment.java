@@ -9,16 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.esrefmlih.R;
+import com.github.mikephil.charting.charts.BarChart;
 
-public class BarFragment extends Fragment {
+public class StatisticsFragment extends Fragment {
     View view;
-    public BarFragment() {
+    private static BarChart mBarChart;
+    public StatisticsFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.bar_fragment, container, false);
+        view = inflater.inflate(R.layout.statistics_fragment, container, false);
+
+
         return view;
     }
 }

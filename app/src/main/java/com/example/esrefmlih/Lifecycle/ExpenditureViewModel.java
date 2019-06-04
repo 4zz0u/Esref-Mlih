@@ -29,4 +29,6 @@ public class ExpenditureViewModel extends AndroidViewModel {
         mRepository.insert(expenditure);
     }
 
+    public void deleteAll() { mRepository.deleteAll(); }
+
 }

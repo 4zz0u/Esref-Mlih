@@ -4,22 +4,18 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.esrefmlih.Calculations.PieUpdater;
 import com.example.esrefmlih.Database.Expenditure;
-import com.example.esrefmlih.Lifecycle.Adding.AddExpenditureActivity;
 import com.example.esrefmlih.Lifecycle.ExpenditureViewModel;
 import com.example.esrefmlih.R;
 import com.github.mikephil.charting.animation.Easing;
@@ -32,26 +28,17 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PieFragment extends Fragment {
+public class GraphsFragment extends Fragment {
     View view;
     public static PieChart mPieChart;
-    public PieFragment() {
+    public GraphsFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.pie_fragment, container, false);
+        view = inflater.inflate(R.layout.graphs_fragment, container, false);
 
-        // Add a listener on the expenditure-add ImageView => takes you to the AddExpenditureActivity
-        FloatingActionButton ic_add = (FloatingActionButton) view.findViewById(R.id.ic_add);
-        ic_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addExpenditureIntent = new Intent(getContext(), AddExpenditureActivity.class);
-                startActivity(addExpenditureIntent);
-            }
-        });
 
         /* Initiate the ViewModel to an observer so it updates the data on the pie chart
                             whenever a new expenditure is added */
@@ -61,7 +48,6 @@ public class PieFragment extends Fragment {
         mExpenditureViewModel.getmAllExpenditures().observe(this, new Observer<List<Expenditure>>() {
             @Override
             public void onChanged(@Nullable List<Expenditure> expenditures) {
-
 
 
                 // Gets all the expenditures from the ViewModel and store them in a variable of type LiveData<List<Expenditure>>
@@ -75,7 +61,6 @@ public class PieFragment extends Fragment {
                 // yValues : contains the values of each expenditure per category
                 ArrayList<PieEntry> yValues;
                 yValues = pieUpdater.update();
-
 
 
                 PieDataSet dataSet = new PieDataSet(yValues, "");
@@ -92,7 +77,6 @@ public class PieFragment extends Fragment {
                 mPieChart.invalidate(); //refresh
             }
         });
-
 
 
         mPieChart = (PieChart) view.findViewById(R.id.pieChart);
@@ -134,7 +118,6 @@ public class PieFragment extends Fragment {
                 ContextCompat.getColor(context, R.color.communication_color)
         };
         View pieChild = mPieChart.getChildAt(0);
-
 
 
         mPieChart.animateY(4000, Easing.EaseInOutBack);

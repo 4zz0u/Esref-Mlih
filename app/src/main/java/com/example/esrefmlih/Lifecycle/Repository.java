@@ -30,14 +30,14 @@ public class Repository {
     }
 
 
-    //Add a wrapper for the insert() method. You must call this on a non-UI thread (the insertAsyncTask we declared) or your app will crash.
+    // Add a wrapper for the insert() method. You must call this on a non-UI thread (the insertAsyncTask we declared) or your app will crash.
     // Room ensures that you don't do any long-running operations on the main thread, blocking the UI.
 
     public void insert(Expenditure expenditure) {
         new insertAsyncTask(mExpenditureDao).execute(expenditure);
     }
 
-    // Declaring an nested class for the Insert asynchronous task to the database
+    // Declaring an inner class for the Insert asynchronous task to the database
 
     private static class insertAsyncTask extends AsyncTask<Expenditure, Void, Void> {
 
@@ -50,6 +50,24 @@ public class Repository {
         @Override
         protected Void doInBackground(final Expenditure... params) {
             mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    // Add a wrapper for the deleteAll() method for the same reasons as we had for insert()
+
+    public void deleteAll() {
+        new deleteAsyncTask(mExpenditureDao).execute();
+    }
+
+    // Declaring an inner class for the Deletion asynchronous task to the database, since deleting is a writing query
+    private static class deleteAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ExpenditureDao mAsyncTaskDao;
+
+        deleteAsyncTask(ExpenditureDao dao) { mAsyncTaskDao = dao; }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteAll();
             return null;
         }
     }

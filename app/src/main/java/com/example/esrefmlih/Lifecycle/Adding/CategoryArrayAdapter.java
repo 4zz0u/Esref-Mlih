@@ -30,6 +30,7 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
                     R.layout.list_item, parent, false);
         }
 
+        // An instance of category
         Category category = getItem(position);
 
         //getting the category name from the instance and push it to the item text view

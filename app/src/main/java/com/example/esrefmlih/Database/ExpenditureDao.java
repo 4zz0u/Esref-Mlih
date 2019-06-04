@@ -28,4 +28,7 @@ public interface ExpenditureDao {
     @Delete
     void delete(Expenditure expenditure);
 
+    @Query("DELETE FROM expenditure_table")
+    void deleteAll();
+
 }

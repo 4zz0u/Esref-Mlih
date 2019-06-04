@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/export_to_excel"
+            android:icon="@drawable/xls"
+            android:title="@string/export_to_xls_file" />
+        <item
+            android:id="@+id/switch_language"
+            android:icon="@drawable/translate"
+            android:title="@string/language" />
+        <item
+            android:id="@+id/delete_data"
+            android:icon="@drawable/database"
+            android:title="@string/delete_data" />
+    </group>
+
+</menu>
