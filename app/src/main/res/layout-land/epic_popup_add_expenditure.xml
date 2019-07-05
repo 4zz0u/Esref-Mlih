@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="Add an expenditure"
+                android:text="@string/add_an_expenditure"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="25sp"
@@ -60,29 +60,38 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="10dp"
                 app:mtf_image="@drawable/ic_delete"
-                app:mtf_labelColor="#666">
+                app:mtf_labelColor="@color/colorWhite">
 
                 <EditText
                     android:id="@+id/amountEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Amount"
+                    android:hint="@string/amount"
                     android:inputType="number"
                     android:textAlignment="gravity"
                     android:textColorHint="@color/colorGoldenYellow" />
 
             </com.github.florent37.materialtextfield.MaterialTextField>
 
-            <TextView
-                android:id="@+id/datePicker"
+            <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="Date picker"
-                android:textSize="20sp" />
+                app:mtf_image="@drawable/ic_date"
+                app:mtf_openKeyboardOnFocus="false"
+                app:mtf_labelColor="@color/colorWhite">
+
+                <EditText
+                    android:id="@+id/dateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/date"
+                    android:textAlignment="gravity"
+                    android:textColorHint="@color/colorGoldenYellow" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
 
             <Button
                 android:id="@+id/confirmBtn"
@@ -92,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_green_round"
-                android:text="confirm"
+                android:text="@string/confirm"
                 android:textColor="@color/colorWhite" />
 
 

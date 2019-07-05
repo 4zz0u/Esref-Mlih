@@ -14,20 +14,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolBar"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@color/colorPrimary"
-            android:elevation="8dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo"
-                android:layout_marginEnd="16dp"
-                android:foregroundGravity="center"/>
-        </android.support.v7.widget.Toolbar>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBar"
+                style="@style/ToolBarStyle"
+                app:titleTextColor="@color/colorWhite">
+
+            </android.support.v7.widget.Toolbar>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/logo"
+            android:elevation="8dp"/>
+
+
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
@@ -37,7 +38,8 @@
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/colorBlack"
             app:tabMode="fixed"
-            app:tabTextColor="@color/colorWhite" />
+            app:tabTextColor="@color/colorWhite"
+            android:elevation="4dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

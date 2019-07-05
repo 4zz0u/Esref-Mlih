@@ -13,6 +13,7 @@ import java.util.List;
 public class Repository {
     private ExpenditureDao mExpenditureDao;
     private LiveData<List<Expenditure>> mAllExpenditures;
+    private static float average;
 
     //Add a constructor that gets a handle to the database and initializes the member variables.
     Repository(Application application) {
@@ -37,6 +38,15 @@ public class Repository {
         new insertAsyncTask(mExpenditureDao).execute(expenditure);
     }
 
+    public void update(Expenditure expenditure) {
+        new updateAsyncTask(mExpenditureDao).execute(expenditure);
+    }
+
+    public float averageAmount(int category) {
+        new averageAsyncTask(mExpenditureDao).execute(category);
+        return average;
+    }
+
     // Declaring an inner class for the Insert asynchronous task to the database
 
     private static class insertAsyncTask extends AsyncTask<Expenditure, Void, Void> {
@@ -53,6 +63,22 @@ public class Repository {
             return null;
         }
     }
+    // Declaring an inner class for the Insert asynchronous task to the database
+
+    private static class updateAsyncTask extends AsyncTask<Expenditure, Void, Void> {
+
+        private ExpenditureDao mAsyncTaskDao;
+
+        updateAsyncTask(ExpenditureDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Expenditure... params) {
+            mAsyncTaskDao.update(params[0]);
+            return null;
+        }
+    }
 
     // Add a wrapper for the deleteAll() method for the same reasons as we had for insert()
 
@@ -60,7 +86,7 @@ public class Repository {
         new deleteAsyncTask(mExpenditureDao).execute();
     }
 
-    // Declaring an inner class for the Deletion asynchronous task to the database, since deleting is a writing query
+    // Declaring an inner class for the deletion asynchronous task to the database, since deleting is a writing query
     private static class deleteAsyncTask extends AsyncTask<Void, Void, Void> {
         private ExpenditureDao mAsyncTaskDao;
 
@@ -70,6 +96,40 @@ public class Repository {
             mAsyncTaskDao.deleteAll();
             return null;
         }
+    }
+
+    // Add a wrapper to the delete expenditure query so it works on an non-UI thread (deleteExpenditureAsyncTask) so the app won't crash.
+    public void delete(Expenditure expenditure) {
+        new deleteExpenditureAsyncTask(mExpenditureDao).execute(expenditure);
+    }
+
+
+    // Declaring an inner class for the expenditure deletion asynchronous task to the database, since deleting is a writing query
+    private static class deleteExpenditureAsyncTask extends AsyncTask<Expenditure, Void, Void>{
+        private ExpenditureDao mAsyncTascDao;
+        deleteExpenditureAsyncTask(ExpenditureDao dao) { mAsyncTascDao = dao; }
+        @Override
+        protected Void doInBackground(Expenditure... expenditures) {
+            mAsyncTascDao.delete(expenditures[0]);
+            return null;
+        }
+    }
+
+    private static class averageAsyncTask extends AsyncTask<Integer, Void, Float> {
+        private ExpenditureDao mAsyncTaskDao;
+
+        averageAsyncTask(ExpenditureDao dao) { mAsyncTaskDao = dao; }
+        @Override
+        protected Float doInBackground(Integer... integers) {
+            return mAsyncTaskDao.averageAmount(integers[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Float aFloat) {
+            super.onPostExecute(aFloat);
+            average = aFloat.floatValue();
+        }
+
     }
 
 }

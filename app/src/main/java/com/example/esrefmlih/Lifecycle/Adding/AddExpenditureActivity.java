@@ -23,7 +23,6 @@ import com.example.esrefmlih.Database.Expenditure;
 import com.example.esrefmlih.Lifecycle.ExpenditureViewModel;
 import com.example.esrefmlih.R;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
     private Button mConfirmBtn;
     private ImageView mClosePopup;
     private EditText mAmountEditText;
-    private TextView mDatePicker;
+    private EditText mDatePicker;
 
     //Declare an instance of ViewModel, that will take the store the Expenditure data and store it into the database
     ExpenditureViewModel mExpenditureViewModel;
@@ -58,21 +57,21 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
         final ArrayList<Category> categories = new ArrayList<Category>();
 
         categories.add(new Category(1, R.color.restaurant_color, "Restaurant", R.drawable.baseline_restaurant_24));
-        categories.add(new Category(2, R.color.smoke_color, "Smoke", R.drawable.twotone_smoking_rooms_24));
-        categories.add(new Category(3, R.color.business_color, "Business", R.drawable.twotone_business_center_24));
+        categories.add(new Category(2, R.color.smoke_color, "Cigarette", R.drawable.twotone_smoking_rooms_24));
+        categories.add(new Category(3, R.color.business_color, "Investissement", R.drawable.twotone_business_center_24));
         categories.add(new Category(4, R.color.transport_color, "Transport", R.drawable.twotone_directions_transit_24));
-        categories.add(new Category(5, R.color.health_color, "Health", R.drawable.baseline_local_hospital_24));
-        categories.add(new Category(6, R.color.food_color, "Food", R.drawable.twotone_fastfood_24));
+        categories.add(new Category(5, R.color.health_color, "Santé", R.drawable.baseline_local_hospital_24));
+        categories.add(new Category(6, R.color.food_color, "Nourriture", R.drawable.twotone_fastfood_24));
         categories.add(new Category(7, R.color.tax_color, "Taxes", R.drawable.baseline_account_balance_24));
-        categories.add(new Category(8, R.color.trip_color, "Trips", R.drawable.baseline_flight_24));
-        categories.add(new Category(9, R.color.car_color, "Car", R.drawable.baseline_directions_car_24));
+        categories.add(new Category(8, R.color.trip_color, "Voyage", R.drawable.baseline_flight_24));
+        categories.add(new Category(9, R.color.car_color, "Voiture", R.drawable.baseline_directions_car_24));
         categories.add(new Category(10, R.color.sport_color, "Sport", R.drawable.baseline_fitness_center_24));
         categories.add(new Category(11, R.color.communication_color, "Communication", R.drawable.baseline_call_24));
 
 
         final CategoryArrayAdapter itemAdapter = new CategoryArrayAdapter(this, categories);
 
-        ListView categoryListView = (ListView) findViewById(R.id.listView);
+        ListView categoryListView = findViewById(R.id.listView);
         categoryListView.setAdapter(itemAdapter);
 
         //setting a click listener on ListView's ITEMS
@@ -91,10 +90,13 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
     private void ShowEpicDialog(final int itemPosition) {
         // Finding the dialog's component's Ids
         mEpicDialog.setContentView(R.layout.epic_popup_add_expenditure);
-        mClosePopup = (ImageView) mEpicDialog.findViewById(R.id.closePopup);
-        mAmountEditText = (EditText) mEpicDialog.findViewById(R.id.amountEditText);
-        mDatePicker = (TextView) mEpicDialog.findViewById(R.id.datePicker);
-        mConfirmBtn = (Button) mEpicDialog.findViewById(R.id.confirmBtn);
+        mClosePopup =  mEpicDialog.findViewById(R.id.closePopup);
+        mAmountEditText =  mEpicDialog.findViewById(R.id.amountEditText);
+        mDatePicker =  mEpicDialog.findViewById(R.id.dateEditText);
+        mConfirmBtn =  mEpicDialog.findViewById(R.id.confirmBtn);
+
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis());
+        mDatePicker.setText(date);
 
         // Set a listener in the Closing cross
         mClosePopup.setOnClickListener(new View.OnClickListener() {
@@ -122,38 +124,41 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
 
                 if(TextUtils.isEmpty(mAmountEditText.getText())) {
                     // Showing this toast after confirming the transaction
-                    toast = Toast.makeText(getApplicationContext(), "Select an amount", Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(getApplicationContext(), "Vous devez selectionner une somme", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.BOTTOM, 0, 0);
                     toast.setMargin(0, 0.05f);
                     toast.show();
-                } else if (mDatePicker.getText().toString().equals("Date picker")){
-                    toast = Toast.makeText(getApplicationContext(), "Select a date", Toast.LENGTH_SHORT);
+                } else if (mDatePicker.getText().toString().equals("")){
+                    toast = Toast.makeText(getApplicationContext(), "Vous devez selectionner une date", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.BOTTOM, 0, 0);
                     toast.setMargin(0, 0.05f);
                     toast.show();
                 }
                 else {
-                    String amountString = mAmountEditText.getText().toString();
-                    int amount = Integer.parseInt(amountString);
+
                     try {
                         Date date = new SimpleDateFormat("dd/MM/yyyy").parse(mDatePicker.getText().toString());
+                        String amountString = mAmountEditText.getText().toString();
+                        int amount = Integer.parseInt(amountString);
                         Expenditure expenditure = new Expenditure(itemPosition, amount, date);
                         mExpenditureViewModel.insert(expenditure);
                     } catch (ParseException e) {
                         e.printStackTrace();
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(AddExpenditureActivity.this, "Somme très large", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                        return;
                     }
 
 
                     // Showing this toast after confirming the transaction
-                    toast = Toast.makeText(getApplicationContext(), "Expenditure added", Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(getApplicationContext(), "Dépense rajoutée", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.BOTTOM, 0, 0);
                     toast.setMargin(0, 0.05f);
                     toast.show();
 
                     mEpicDialog.dismiss();
                 }
-
-
 
 
             }
@@ -168,6 +173,7 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
      * This method shows the Date Picker dialog
      */
     private void showDateDialog() {
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
                 this,
@@ -182,11 +188,11 @@ public class AddExpenditureActivity extends AppCompatActivity implements DatePic
     // This will be triggered when a date is selected
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + month + "/" + year;
+        String date = dayOfMonth + "/" + (month + 1) + "/" + year;
         mDatePicker.setText(date);
 
         // Showing this toast after picking the date
-        Toast dateToast = Toast.makeText(this, "Date has been selected", Toast.LENGTH_SHORT);
+        Toast dateToast = Toast.makeText(this, "Date selectionnée", Toast.LENGTH_SHORT);
         dateToast.setGravity(Gravity.BOTTOM, 0, 0);
         dateToast.setMargin(0, 0.05f);
         dateToast.show();

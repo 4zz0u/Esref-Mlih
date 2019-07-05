@@ -1,21 +1,31 @@
 <resources>
     <string name="app_name">Esref Mlih</string>
     <!--navigation items strings-->
-    <string name="export_to_xls_file">Export to XLS file</string>
-    <string name="language">Language</string>
-    <string name="delete_data">Delete data</string>
+    <string name="export_to_xls_file">Exporter vers un fichier XLS</string>
+    <string name="language">Langage</string>
+    <string name="delete_data">Supprimer les données</string>
 
     <!--navigation toggle for ActionBarDrawerToggle (MainActivity)-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--Data removal dialog strings-->
-    <string name="confirm">confirm</string>
-    <string name="awww_are_you_sure">Awww… are you sure ?</string>
-    <string name="warning_dialog">by clicking on confirm, all your previous transactions will get deleted from the database, are you sure about this ?</string>
+    <string name="confirm">confirmer</string>
+    <string name="awww_are_you_sure">Êtes-vous sûr ?!</string>
+    <string name="warning_dialog">En cliquant sur "confirmer, tous vos dépenses seront supprimées de la base de donnée, êtes-vous sûr de cette action ?</string>
 
     <!--TabLayout strings-->
-    <string name="graphs_tab">Graphs</string>
-    <string name="statistics_tab">Statitics</string>
-    <string name="transactions_tab">Transactions</string>
+    <string name="graphs_tab">Graphes</string>
+    <string name="statistics_tab">Statistiques</string>
+    <string name="transactions_tab">Historique</string>
+    <string name="delete_expenditure_text">Voulez-vous vraiment supprimer cette dépense ?</string>
+    <string name="edit_your_expenditure">Modifiez votre dépense</string>
+    <string name="add_an_expenditure">Ajouter une dépense</string>
+    <string name="amount">Somme</string>
+    <string name="date">Date</string>
+    <string name="per_day">Par jour :</string>
+    <string name="per_month">Par mois  :</string>
+    <string name="total">Total :</string>
+    <string name="edit">Modifier</string>
+    <string name="delete">Supprimer</string>
 </resources>

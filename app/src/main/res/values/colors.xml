@@ -5,6 +5,7 @@
     <color name="colorAccent">#07688D</color>
 
     <color name="background_category">#FFF7DA</color>
+    <color name="colorDarkBlue">#263238</color>
 
     <!-- Categories colors -->
     <color name="smoke_color">#EF6C00</color>

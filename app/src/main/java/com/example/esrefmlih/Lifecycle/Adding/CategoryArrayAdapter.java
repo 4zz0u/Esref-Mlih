@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CategoryArrayAdapter extends ArrayAdapter<Category> {
 
-    public CategoryArrayAdapter(Context context, List<Category> objects) {
+    CategoryArrayAdapter(Context context, List<Category> objects) {
        super(context, 0, objects);
 
     }
@@ -34,11 +34,11 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
         Category category = getItem(position);
 
         //getting the category name from the instance and push it to the item text view
-        TextView categoryText = (TextView) listItemView.findViewById(R.id.text_category);
+        TextView categoryText =  listItemView.findViewById(R.id.text_category);
         categoryText.setText(category.getCategoryName());
 
         //getting the category icon from the instance and push it to the item icon
-        ImageView iconCategory = (ImageView) listItemView.findViewById(R.id.ic_category);
+        ImageView iconCategory =  listItemView.findViewById(R.id.ic_category);
         iconCategory.setImageResource(category.getIconRessourceId());
 
         //changing the category's background color

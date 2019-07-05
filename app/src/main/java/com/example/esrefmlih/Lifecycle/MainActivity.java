@@ -1,6 +1,7 @@
 package com.example.esrefmlih.Lifecycle;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -15,17 +16,22 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.example.esrefmlih.Lifecycle.Adding.AddExpenditureActivity;
-import com.example.esrefmlih.Lifecycle.ViewPager.StatisticsFragment;
+import com.example.esrefmlih.Lifecycle.ViewPager.Statistics.StatisticsFragment;
 import com.example.esrefmlih.Lifecycle.ViewPager.GraphsFragment;
 import com.example.esrefmlih.Lifecycle.ViewPager.Transactions.TransactionsFragment;
 import com.example.esrefmlih.Lifecycle.ViewPager.ViewPagerAdapter;
 import com.example.esrefmlih.R;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.export_to_excel:
+                        exportXLS();
                         break;
                     case R.id.switch_language:
                         break;
@@ -138,5 +145,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mEpicDeleteDialog.show();
+    }
+
+    private void exportXLS(){
+        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(this, "expenditure_database", getDatabasePath("expenditure_database.db").getAbsolutePath());
+        sqLiteToExcel.exportSingleTable("expenditure_table", "", new SQLiteToExcel.ExportListener() {
+            final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+            @Override
+            public void onStart() {
+
+                dialog.setMessage("Exporting database...");
+                dialog.show();
+            }
+
+            @Override
+            public void onCompleted(String filePath) {
+                if (dialog.isShowing()){
+                    dialog.dismiss();
+                }
+                Toast.makeText(MainActivity.this, "Export successful!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(MainActivity.this, "Export failed!", Toast.LENGTH_SHORT).show();
+                Log.e("MainActivity", e.toString());
+                if (dialog.isShowing()) dialog.dismiss();
+            }
+        });
     }
 }

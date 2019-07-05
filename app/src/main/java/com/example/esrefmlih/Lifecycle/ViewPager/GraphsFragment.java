@@ -1,43 +1,49 @@
 package com.example.esrefmlih.Lifecycle.ViewPager;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.esrefmlih.Calculations.BarUpdater;
+import com.example.esrefmlih.Calculations.HorizontalBarUpdater;
 import com.example.esrefmlih.Calculations.PieUpdater;
+import com.example.esrefmlih.Calculations.RadarUpdater;
 import com.example.esrefmlih.Database.Expenditure;
 import com.example.esrefmlih.Lifecycle.ExpenditureViewModel;
 import com.example.esrefmlih.R;
-import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.data.RadarData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GraphsFragment extends Fragment {
-    View view;
-    public static PieChart mPieChart;
+
+    private BarUpdater barUpdater;
+    private PieUpdater pieUpdater;
+    private RadarUpdater radarUpdater;
+    private HorizontalBarUpdater horizontalBarUpdater;
+    private static PieChart mPieChart;
+    private static BarChart mBarChart;
+    private static RadarChart mRadarChart;
+    private static HorizontalBarChart mHorizontalBarChart;
     public GraphsFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.graphs_fragment, container, false);
+        View view = inflater.inflate(R.layout.graphs_fragment, container, false);
 
 
         /* Initiate the ViewModel to an observer so it updates the data on the pie chart
@@ -48,82 +54,61 @@ public class GraphsFragment extends Fragment {
         mExpenditureViewModel.getmAllExpenditures().observe(this, new Observer<List<Expenditure>>() {
             @Override
             public void onChanged(@Nullable List<Expenditure> expenditures) {
+                //expenditures are a list of expenditures fetched from the database with the query request made by the view model
+
+                pieUpdater = new PieUpdater(expenditures);
+                barUpdater = new BarUpdater(expenditures);
+                radarUpdater = new RadarUpdater(expenditures);
+                horizontalBarUpdater = new HorizontalBarUpdater(expenditures);
 
 
-                // Gets all the expenditures from the ViewModel and store them in a variable of type LiveData<List<Expenditure>>
-                LiveData<List<Expenditure>> observedExpenditures = mExpenditureViewModel.getmAllExpenditures();
-
-                // Gets a list of the expenditures by unwrapping it from live data
-                List<Expenditure> allExpenditures = observedExpenditures.getValue();
-
-                PieUpdater pieUpdater = new PieUpdater(allExpenditures);
-
-                // yValues : contains the values of each expenditure per category
-                ArrayList<PieEntry> yValues;
-                yValues = pieUpdater.update();
+                PieData pieData = pieUpdater.update(getContext());
+                BarData barData = barUpdater.update();
+                RadarData radarData = radarUpdater.update();
+                BarData horizontalBarData = horizontalBarUpdater.update();
 
 
-                PieDataSet dataSet = new PieDataSet(yValues, "");
-
-                dataSet.setSliceSpace(3f);
-                dataSet.setSelectionShift(10f);
-                dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-                PieData data = new PieData((dataSet));
-                data.setValueTextSize(20f);
-                data.setValueTextColor(Color.WHITE);
-
-                mPieChart.setData(data);
+                mPieChart.setData(pieData);
                 mPieChart.invalidate(); //refresh
+                mPieChart.notifyDataSetChanged();
+
+                mBarChart.setData(barData);
+                mBarChart.invalidate(); //refresh
+                mBarChart.notifyDataSetChanged();
+
+                mRadarChart.setData(radarData);
+                mRadarChart.invalidate(); //refresh
+                mRadarChart.notifyDataSetChanged();
+
+                mHorizontalBarChart.setData(horizontalBarData);
+                mHorizontalBarChart.invalidate(); //refresh
+                mHorizontalBarChart.notifyDataSetChanged();
+
             }
         });
 
+        // finding views from the ressources
+        mPieChart = view.findViewById(R.id.pieChart);
+        mBarChart = view.findViewById(R.id.barChart);
+        mRadarChart = view.findViewById(R.id.radarChart);
+        mHorizontalBarChart = view.findViewById(R.id.horizontalBarChart);
 
-        mPieChart = (PieChart) view.findViewById(R.id.pieChart);
+        // gives the piechart the different parameters
+        pieUpdater = new PieUpdater();
+        pieUpdater.pieDrawer(mPieChart, getContext()); // the context is needed for slice coloring
 
-        // Enable middle hole to appear
-        mPieChart.setDrawHoleEnabled(true);
+        // gives the vertical bar chart the different parameters
+        barUpdater = new BarUpdater();
+        barUpdater.barDrawer(mBarChart);
 
-        // Enable percentage
-        mPieChart.setUsePercentValues(true);
+        // gives the radar chart the different parameters
+        radarUpdater = new RadarUpdater();
+        radarUpdater.radarDrawer(mRadarChart);
 
-        // Disable description
-        mPieChart.getDescription().setEnabled(false);
-        mPieChart.setExtraOffsets(10, 2, 10, 15);
-
-        //Friction parameter for dragging the mPieChart
-        mPieChart.setDragDecelerationFrictionCoef(0.15f);
-
-        //The hole's parameter
-        mPieChart.setDrawHoleEnabled(true);
-        int holeColor = ContextCompat.getColor(getContext(), R.color.colorAccent);
-        mPieChart.setHoleColor(holeColor);
-        mPieChart.setTransparentCircleRadius(61f);
-        mPieChart.setTransparentCircleAlpha(110);
-        mPieChart.getLegend().setEnabled(false);
-
-
-        // Setting categories colors
-        Context context = getContext();
-        int [] categoriesColors = {ContextCompat.getColor(context, R.color.restaurant_color),
-                ContextCompat.getColor(context, R.color.smoke_color),
-                ContextCompat.getColor(context, R.color.business_color),
-                ContextCompat.getColor(context, R.color.transport_color),
-                ContextCompat.getColor(context, R.color.health_color),
-                ContextCompat.getColor(context, R.color.food_color),
-                ContextCompat.getColor(context, R.color.tax_color),
-                ContextCompat.getColor(context, R.color.trip_color),
-                ContextCompat.getColor(context, R.color.car_color),
-                ContextCompat.getColor(context, R.color.sport_color),
-                ContextCompat.getColor(context, R.color.communication_color)
-        };
-        View pieChild = mPieChart.getChildAt(0);
-
-
-        mPieChart.animateY(4000, Easing.EaseInOutBack);
+        // gives the horizontal bar chart the different parameters
+        horizontalBarUpdater = new HorizontalBarUpdater();
+        horizontalBarUpdater.horizontalBarDrawer(mHorizontalBarChart);
 
         return view;
     }
-
-
 }

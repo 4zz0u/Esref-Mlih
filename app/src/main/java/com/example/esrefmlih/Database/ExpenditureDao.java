@@ -31,4 +31,7 @@ public interface ExpenditureDao {
     @Query("DELETE FROM expenditure_table")
     void deleteAll();
 
+    @Query("SELECT AVG(amount) FROM expenditure_table WHERE category = :category")
+    float averageAmount(int category);
+
 }

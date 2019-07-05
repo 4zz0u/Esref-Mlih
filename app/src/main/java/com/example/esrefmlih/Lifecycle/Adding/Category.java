@@ -47,11 +47,5 @@ public class Category {
         this.mBackgroundColor = mBackgroundColor;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "mCategoryName='" + mCategoryName + '\'' +
-                ", mIconRessourceId=" + mIconRessourceId +
-                '}';
-    }
+
 }
