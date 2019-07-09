@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="88dp"
-        android:src="@mipmap/logo_transparent" />
+        android:contentDescription="TODO" android:src="@mipmap/logo_transparent" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

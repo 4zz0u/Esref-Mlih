@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.esrefmlih">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -10,15 +9,18 @@
         android:roundIcon="@mipmap/logo_transparent"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="com.example.esrefmlih.Lifecycle.Adding.AddExpenditureActivity"/>
-        <activity android:name="com.example.esrefmlih.Lifecycle.Adding.Category" />
-        <activity android:name="com.example.esrefmlih.Lifecycle.MainActivity">
+        <activity android:name=".Introduction.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Lifecycle.Adding.AddExpenditureActivity"
+            android:label="Add an expenditure" />
+        <activity android:name=".Lifecycle.Adding.Category" />
+        <activity android:name=".Lifecycle.MainActivity">
         </activity>
     </application>
 

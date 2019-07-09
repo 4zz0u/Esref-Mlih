@@ -102,7 +102,7 @@ public class PieUpdater {
         pieChart.setDrawHoleEnabled(true);
         int holeColor = ContextCompat.getColor(context, R.color.colorAccent);
         pieChart.setHoleColor(holeColor);
-        pieChart.setTransparentCircleRadius(61f);
+        pieChart.setTransparentCircleRadius(57f);
         pieChart.setTransparentCircleAlpha(110);
         pieChart.getLegend().setEnabled(false);
 

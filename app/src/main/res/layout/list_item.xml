@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/ic_category"
-        android:layout_width="@dimen/list_item_height"
+        android:layout_width="@dimen/list_item_height" android:contentDescription="TODO" 
         android:layout_height="@dimen/list_item_height" />
 
     <TextView

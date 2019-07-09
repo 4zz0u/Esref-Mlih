@@ -35,5 +35,4 @@ public class ExpenditureViewModel extends AndroidViewModel {
 
     public void delete(Expenditure expenditure) { mRepository.delete(expenditure); }
 
-    public float averageAmount(int category) { return mRepository.averageAmount(category); }
 }

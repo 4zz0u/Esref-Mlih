@@ -22,16 +22,10 @@ public interface ExpenditureDao {
     @Query("SELECT * FROM expenditure_table")
     LiveData<List<Expenditure>> getAllExpenditures();
 
-    @Query("SELECT * FROM expenditure_table WHERE category = :category")
-    LiveData<List<Expenditure>> getExpendituresByCategory(int category);
-
     @Delete
     void delete(Expenditure expenditure);
 
     @Query("DELETE FROM expenditure_table")
     void deleteAll();
-
-    @Query("SELECT AVG(amount) FROM expenditure_table WHERE category = :category")
-    float averageAmount(int category);
 
 }

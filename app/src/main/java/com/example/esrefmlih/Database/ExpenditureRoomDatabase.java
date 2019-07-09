@@ -18,14 +18,6 @@ public abstract class ExpenditureRoomDatabase extends RoomDatabase {
     // Making the database instance as a singleton
     private static volatile ExpenditureRoomDatabase INSTANCE;
 
-    // Adding a migration constant for the date column
-    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE expenditure_table "
-                    + " ADD COLUMN date LONG");
-        }
-    };
     public static ExpenditureRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (ExpenditureRoomDatabase.class) {

@@ -2,12 +2,10 @@ package com.example.esrefmlih.Lifecycle.ViewPager.Statistics;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.ListView;
 import com.example.esrefmlih.Database.Expenditure;
 import com.example.esrefmlih.Lifecycle.ExpenditureViewModel;
 import com.example.esrefmlih.R;
-import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,15 +51,19 @@ public class StatisticsFragment extends Fragment {
 
                 ArrayList<Statistics> statistics = new ArrayList<>();
                 for (int i = 0; i < categories.length; i++) {
-                    float average = expenditureViewModel.averageAmount(i);
-                    int total = 0;
+                    float averagePerDay;
+                    float averagePerMonth;
+                    int totalExpenditure = 0;
                     for (Expenditure expenditure : expenditures){
                         if(expenditure.getCategory() == i) {
-                            total =+ expenditure.getAmount();
+                            totalExpenditure += expenditure.getAmount();
                         }
-                    }
 
-                    statistics.add(new Statistics(categories[i], average, 0f, total, categoriesColors[i]));
+                    }
+                    averagePerDay = totalExpenditure/30;
+                    averagePerMonth = totalExpenditure/12;
+
+                    statistics.add(new Statistics(categories[i], averagePerDay, averagePerMonth, totalExpenditure, categoriesColors[i]));
                 }
 
                 StatisticsListAdapater listAdapater = new StatisticsListAdapater(getContext(), statistics);
@@ -74,4 +75,5 @@ public class StatisticsFragment extends Fragment {
 
         return view;
     }
+
 }

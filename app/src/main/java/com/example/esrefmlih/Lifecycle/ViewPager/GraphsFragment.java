@@ -2,6 +2,8 @@ package com.example.esrefmlih.Lifecycle.ViewPager;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -54,6 +56,9 @@ public class GraphsFragment extends Fragment {
         mExpenditureViewModel.getmAllExpenditures().observe(this, new Observer<List<Expenditure>>() {
             @Override
             public void onChanged(@Nullable List<Expenditure> expenditures) {
+
+                int total = 0;
+                for(Expenditure expenditure : expenditures) total += expenditure.getAmount();
                 //expenditures are a list of expenditures fetched from the database with the query request made by the view model
 
                 pieUpdater = new PieUpdater(expenditures);
@@ -70,6 +75,11 @@ public class GraphsFragment extends Fragment {
 
                 mPieChart.setData(pieData);
                 mPieChart.invalidate(); //refresh
+                mPieChart.setCenterText("Total : " + total + ".00Dz");
+                mPieChart.setCenterTextColor(Color.WHITE);
+                mPieChart.setCenterTextRadiusPercent(25f);
+                mPieChart.setCenterTextTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+                mPieChart.setCenterTextSize(11f);
                 mPieChart.notifyDataSetChanged();
 
                 mBarChart.setData(barData);

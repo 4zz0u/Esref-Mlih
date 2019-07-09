@@ -13,7 +13,7 @@ import java.util.List;
 public class Repository {
     private ExpenditureDao mExpenditureDao;
     private LiveData<List<Expenditure>> mAllExpenditures;
-    private static float average;
+    private float average;
 
     //Add a constructor that gets a handle to the database and initializes the member variables.
     Repository(Application application) {
@@ -42,10 +42,6 @@ public class Repository {
         new updateAsyncTask(mExpenditureDao).execute(expenditure);
     }
 
-    public float averageAmount(int category) {
-        new averageAsyncTask(mExpenditureDao).execute(category);
-        return average;
-    }
 
     // Declaring an inner class for the Insert asynchronous task to the database
 
@@ -113,23 +109,6 @@ public class Repository {
             mAsyncTascDao.delete(expenditures[0]);
             return null;
         }
-    }
-
-    private static class averageAsyncTask extends AsyncTask<Integer, Void, Float> {
-        private ExpenditureDao mAsyncTaskDao;
-
-        averageAsyncTask(ExpenditureDao dao) { mAsyncTaskDao = dao; }
-        @Override
-        protected Float doInBackground(Integer... integers) {
-            return mAsyncTaskDao.averageAmount(integers[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Float aFloat) {
-            super.onPostExecute(aFloat);
-            average = aFloat.floatValue();
-        }
-
     }
 
 }
